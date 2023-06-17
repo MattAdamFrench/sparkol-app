@@ -1,13 +1,13 @@
+import { getServerSession } from 'next-auth';
 import SignInButton from '@/components/SignInButton';
 import SignOutButton from '@/components/SignOutButton';
-import { getServerSession } from 'next-auth';
 
-
+/* Application Home, should display a personalised message or ask the user to sign in */
 export default async function HomePage() {
 
     const session = await getServerSession();
 
-    let message = session?.user ? `Welcome ${session.user.name}!` : "Please sign in!";
+    const message = session?.user ? `Welcome ${session.user.name}!` : "Please sign in!";
 
     return (
         <div className="container mx-auto pt-5">
