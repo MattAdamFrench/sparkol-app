@@ -2,9 +2,9 @@
 
 import { signIn } from "next-auth/react";
 
-export default function SignInButton(props: {className?: string}) {
+export default function SignInButton() {
     return (
-        <button onClick={() => signIn()} className={`rounded bg-purple-400 p-2 ${props.className}`}>
+        <button onClick={() => signIn()} className="btn-primary">
             Sign In
         </button> 
     )
