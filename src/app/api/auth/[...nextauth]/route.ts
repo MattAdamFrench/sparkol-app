@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -11,7 +10,9 @@ const handler = NextAuth({
                 password: { label: "Password", type: "text" }
             },
             async authorize(credentials, req) {
-                const res = await fetch("http://localhost:3333/login", {
+
+                // Post user credentials to authentication server, and wait for response
+                const res = await fetch(`${process.env.AUTHSERVER_URL}/login`, {
                     method: "POST",
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
@@ -20,13 +21,14 @@ const handler = NextAuth({
                 const user = await res.json();
 
                 if (res.ok && user) {
+                    // Provide a NextAuth user object based on returned data
                     return {
                         id: user.user.id,
                         name: user.user.name,
                     };
                 }
-                return null;
-            }
+                return null
+            },
         })
     ],
     secret: process.env.NEXTAUTH_SECRET,
