@@ -18,6 +18,16 @@ const handler = NextAuth({
                     headers: { "Content-Type": "application/json" }
                 });
 
+                // If the auth server didnt approve our credentials
+                if (res.status === 401) {
+                    return null;
+                }
+
+                // Typically if there was an issue with the external server
+                if (res.status !== 200) {
+                    throw new Error("Error authenticating with external server!");
+                } 
+
                 const user = await res.json();
 
                 if (res.ok && user) {
@@ -27,7 +37,8 @@ const handler = NextAuth({
                         name: user.user.name,
                     };
                 }
-                return null
+                
+                throw new Error();
             },
         })
     ],
