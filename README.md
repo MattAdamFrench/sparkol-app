@@ -25,6 +25,11 @@ TailwindCSS for styling.
 React for frontend.
 NextAuth for authentication.
 
+### Linting
+The project has been configured for linting using ESLint, and extending the recommend typescript configuration.
+We also add some additional rules such as automatic ordering of imports.
+You can run the linter using `npm run lint`.
+
 ### Environment Variables
 #### NEXTAUTH_SECRET
 The randomly generated secret string used to encrypt JWTs.
